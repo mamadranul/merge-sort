@@ -1,9 +1,5 @@
 #include "tree.hpp"
 
-// Новый синтаксис объявления функций
-// То же самое, что
-// tree::iterator& tree::iterator::operator++()
-// только меньше повторений
 auto tree::iterator::operator++() -> iterator& {
     return *this;
 }
