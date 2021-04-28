@@ -1,5 +1,5 @@
-#include <tree.hpp>
-#include <catch.hpp>
+#include "tree.hpp"
+#include <doctest.h>
 #include <algorithm>
 
 TEST_CASE("can iterate") {

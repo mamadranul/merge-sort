@@ -13,6 +13,4 @@ set_project_warnings(default)
 
 enable_testing()
 add_subdirectory(external/doctest)
-if(CMAKE_SOURCE_DIR STREQUAL PROJECT_SOURCE_DIR)
-    add_subdirectory(tree-iterator)
-endif()
+add_subdirectory(tree-iterator)
