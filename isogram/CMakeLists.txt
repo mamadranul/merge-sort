@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 3.10.0)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_EXTENSIONS OFF)
+add_executable(isogram_test isogram.cpp isogram_test.cpp)
+target_link_libraries(isogram_test PUBLIC doctest default)
+add_test(NAME isogram_test COMMAND isogram_test --force-colors -d)
