@@ -10,5 +10,5 @@ auto is_isogram(std::string const& word) -> bool {
     // Возвращает true, если строка является изограммой,
     // и false, если не явялется
     // Код пишите здесь
-    return false;
+    return word.empty();
 }
