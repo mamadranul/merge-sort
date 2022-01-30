@@ -40,3 +40,9 @@ TEST_CASE("duplicated_character_in_the_middle") {
 TEST_CASE("same_first_and_last_characters") {
   REQUIRE(is_isogram("angola") == false);
 }
+
+
+// Для проверки всех ошибок
+extern "C" const char *__asan_default_options() {
+  return "debug=1:detect_invalid_pointer_pairs=2:detect_leak=1:detect_leaks=1:leak_check_at_exit=true:color=always";
+}
