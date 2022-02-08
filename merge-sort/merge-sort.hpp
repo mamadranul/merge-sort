@@ -5,6 +5,8 @@
 struct ListElement {
     int value;
     std::unique_ptr<ListElement> next;
+
+    ListElement(int value) : value(value) {}
 };
 
 struct List {
