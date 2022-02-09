@@ -92,7 +92,7 @@ void sort_tester(std::vector<int> range) {
     auto *ptr = list.head.get();
     for (auto number : range) {
         REQUIRE(ptr != nullptr);
-        CHECK(ptr->value == number);
+        REQUIRE(ptr->value == number);
         ptr = ptr->next.get();
     }
     CHECK(ptr == nullptr);
@@ -134,8 +134,8 @@ TEST_CASE("larger") {
 }
 
 TEST_CASE("huge") {
-    sort_tester(make_simple_vector(1000'000, 7)); // NOLINT
-    sort_tester(make_simple_vector(1000'000, 654321)); // NOLINT
+    sort_tester(make_simple_vector(100'000, 7)); // NOLINT
+    sort_tester(make_simple_vector(100'000, 654321)); // NOLINT
 }
 
 TEST_SUITE_END();
