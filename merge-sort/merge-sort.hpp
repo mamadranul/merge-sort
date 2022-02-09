@@ -6,7 +6,8 @@ struct ListElement {
     int value;
     std::unique_ptr<ListElement> next;
 
-    ListElement(int value, std::unique_ptr<ListElement> &&next = nullptr) : value(value), next(std::move(next)) {}
+    ListElement(int avalue, std::unique_ptr<ListElement> &&anext = nullptr)
+        : value(avalue), next(std::move(anext)) {}
 };
 
 struct List {
