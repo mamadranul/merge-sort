@@ -6,12 +6,13 @@ struct ListElement {
     int value;
     std::unique_ptr<ListElement> next;
 
-    ListElement(int value) : value(value) {}
+    ListElement(int value, std::unique_ptr<ListElement> &&next) : value(value), next(std::move(next)) {}
 };
 
 struct List {
     std::unique_ptr<ListElement> head;
     List(std::initializer_list<int>);
+
 };
 
 extern List merge(List, List) noexcept;

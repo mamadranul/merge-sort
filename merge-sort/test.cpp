@@ -1,6 +1,21 @@
 #include <doctest.h>
 #include <initializer_list>
+#include <limits>
+#include <vector>
 #include "merge-sort.hpp"
+
+bool operator==(ListElement const &a, ListElement const &b) {
+    if (a.value != b.value) return false;
+    if (!a.next && !b.next) return true;
+    if (!a.next || !b.next) return false;
+    return *(a.next) == *(b.next);
+}
+
+bool operator==(List const &a, List const &b) {
+    if (!a.head && !b.head) return true;
+    if (!a.head || !b.head) return false;
+    return *(a.head) == *(b.head);
+}
 
 TEST_SUITE_BEGIN("constructor");
 
@@ -26,6 +41,7 @@ TEST_CASE("List 1,2") {
 }
 
 TEST_CASE("List 1,2,...,0") {
+    // NOLINTNEXTLINE
     auto ilist = {1,2,3,4,5,6,7,8,9,0};
     auto a = List(ilist);
     ListElement *ptr = a.head.get();
@@ -39,8 +55,58 @@ TEST_CASE("List 1,2,...,0") {
 
 TEST_SUITE_END();
 
+TEST_SUITE_BEGIN("merge");
+
+TEST_CASE("null") {
+    REQUIRE(merge(List{}, List{}) == List{});
+    REQUIRE(merge(List{1}, List{}) == List{1});
+    REQUIRE(merge(List{}, List{1}) == List{1});
+    REQUIRE(merge(List{3, 1, 2}, List{}) == List{3, 1, 2});
+    REQUIRE(merge(List{}, List{1, 3, 2}) == List{1, 3, 2});
+}
+
+TEST_CASE("simple 123456") {
+    REQUIRE(merge(List{1, 2, 3}, List{4, 5, 6}) == List{1, 2, 3, 4, 5, 6});
+    REQUIRE(merge(List{4, 5, 6}, List{1, 2, 3}) == List{1, 2, 3, 4, 5, 6});
+    REQUIRE(merge(List{1, 3, 5}, List{2, 4, 6}) == List{1, 2, 3, 4, 5, 6});
+    REQUIRE(merge(List{1, 6}, List{2, 3, 4, 5}) == List{1, 2, 3, 4, 5, 6});
+}
+
+TEST_SUITE_END();
+
+TEST_SUITE_BEGIN("merge");
+
+void sort_tester(std::vector<int> range) {
+    List list{};
+    for (auto it = rbegin(range); it != rend(range); ++it)
+        list.head = std::make_unique<ListElement>(*it, std::move(list.head));
+    mergesort(list);
+    std::sort(begin(range), end(range));
+    auto *ptr = list.head.get();
+    for (auto number : range) {
+        REQUIRE(ptr != nullptr);
+        CHECK(ptr->value == number);
+        ptr = ptr->next.get();
+    }
+    CHECK(ptr == nullptr);
+}
+
+TEST_CASE("null") {
+    sort_tester({});
+}
+
+TEST_CASE("small") {
+    sort_tester({3, 2, 1});
+    sort_tester({1, 2, 3});
+    sort_tester({3, 1, 2});
+    sort_tester({2, 3, 1});
+    sort_tester({2, 1, 3});
+}
+
+TEST_SUITE_END();
+
 // Для проверки всех ошибок
 extern "C" const char *__asan_default_options() {
-    return "debug=1:detect_invalid_pointer_pairs=2:detect_leak=1:detect_leaks="
-           "1:leak_check_at_exit=true:color=always";
+    return "debug=1:detect_invalid_pointer_pairs=2:detect_leak=1:detect_leaks=1"
+           ":leak_check_at_exit=true:color=always";
 }
