@@ -72,12 +72,19 @@ TEST_CASE("simple 123456") {
     REQUIRE(merge(List{1, 6}, List{2, 3, 4, 5}) == List{1, 2, 3, 4, 5, 6});
 }
 
+TEST_CASE("dup") {
+    REQUIRE(merge(List{1, 2, 3}, List{1, 2, 3}) == List{1, 1, 2, 2, 3, 3});
+    REQUIRE(merge(List{4, 5, 6}, List{1, 2, 3, 4}) ==
+            List{1, 2, 3, 4, 4, 5, 6});
+}
+
 TEST_SUITE_END();
 
 TEST_SUITE_BEGIN("merge");
 
 void sort_tester(std::vector<int> range) {
     List list{};
+    // Проход по массиву в обратном порядке
     for (auto it = rbegin(range); it != rend(range); ++it)
         list.head = std::make_unique<ListElement>(*it, std::move(list.head));
     mergesort(list);
@@ -101,6 +108,34 @@ TEST_CASE("small") {
     sort_tester({3, 1, 2});
     sort_tester({2, 3, 1});
     sort_tester({2, 1, 3});
+}
+
+TEST_CASE("dup") {
+    sort_tester({1, 2, 1, 3});
+    sort_tester({1, 1, 1});
+    sort_tester({1, 2, 3, 1, 2, 3});
+    sort_tester({-1, -2, -3, -4});
+}
+
+auto make_simple_vector(int size, int prime) {
+    std::vector<int> v;
+    for (int i = 1; i < size; ++i)
+        v.push_back(i * prime % size);
+    return v;
+}
+
+TEST_CASE("larger") {
+    sort_tester(make_simple_vector(10, 7)); // NOLINT
+    sort_tester(make_simple_vector(100, 7)); // NOLINT
+    sort_tester(make_simple_vector(128, 11)); // NOLINT
+    sort_tester(make_simple_vector(128, 127)); // NOLINT
+    sort_tester(make_simple_vector(128, 63)); // NOLINT
+    sort_tester(make_simple_vector(128, 13)); // NOLINT
+}
+
+TEST_CASE("huge") {
+    sort_tester(make_simple_vector(1000'000, 7)); // NOLINT
+    sort_tester(make_simple_vector(1000'000, 654321)); // NOLINT
 }
 
 TEST_SUITE_END();
