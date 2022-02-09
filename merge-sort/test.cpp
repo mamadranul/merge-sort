@@ -1,8 +1,9 @@
+#include "merge-sort.hpp"
+#include <algorithm>
 #include <doctest.h>
 #include <initializer_list>
 #include <limits>
 #include <vector>
-#include "merge-sort.hpp"
 
 bool operator==(ListElement const &a, ListElement const &b) {
     if (a.value != b.value) return false;
