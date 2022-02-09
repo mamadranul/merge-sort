@@ -81,7 +81,7 @@ TEST_CASE("dup") {
 
 TEST_SUITE_END();
 
-TEST_SUITE_BEGIN("merge");
+TEST_SUITE_BEGIN("sort");
 
 void sort_tester(std::vector<int> range) {
     List list{};
