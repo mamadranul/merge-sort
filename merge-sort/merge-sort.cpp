@@ -7,15 +7,18 @@ List::List(std::initializer_list<int> list) {
     for (auto number : list) {
         // TODO: Добавить в создаваемый односвязный список
         if (last == nullptr) {
-            // TODO: Создать head
+            // TODO: Создать первый элемент списка в head
         } else {
-            // TODO: Создать tail->next
+            // TODO: Создать элемент списка в tail->next
         }
-        
     }
 }
 
-List merge(List a, List b) noexcept { return a; }
+auto merge(List a, List b) noexcept -> List {
+    // Слияние двух списков
+    return a;
+}
 
-void mergesort(List &list) noexcept {
+auto mergesort(List &list) noexcept -> void {
+    // Сортировка слиянием
 }
