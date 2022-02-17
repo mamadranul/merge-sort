@@ -3,6 +3,7 @@
 #include <doctest.h>
 #include <initializer_list>
 #include <limits>
+#include <ostream>
 #include <vector>
 
 bool operator==(ListElement const &a, ListElement const &b) {
@@ -18,13 +19,14 @@ bool operator==(List const &a, List const &b) {
     return *(a.head) == *(b.head);
 }
 
-std::ostream &operator<<(std::ostream &s, List const& l) {
+std::ostream &operator<<(std::ostream &s, List const &l) {
     s << "List{";
     auto *ptr = l.head.get();
     while (ptr != nullptr) {
         s << ptr->value;
         if (ptr->next != nullptr)
             s << ", ";
+        ptr = ptr->next.get();
     }
     s << "}";
     return s;
