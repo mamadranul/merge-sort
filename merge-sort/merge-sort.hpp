@@ -13,6 +13,7 @@ struct ListElement {
 struct List {
     std::unique_ptr<ListElement> head;
     List(std::initializer_list<int>);
+    List() = default;
 
     // Для того, чтобы избежать рекурсии при удалении
     List(List const &) = delete;
