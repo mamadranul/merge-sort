@@ -18,6 +18,18 @@ bool operator==(List const &a, List const &b) {
     return *(a.head) == *(b.head);
 }
 
+std::ostream &operator<<(std::ostream &s, List const& l) {
+    s << "List{";
+    auto *ptr = l.head.get();
+    while (ptr != nullptr) {
+        s << ptr->value;
+        if (ptr->next != nullptr)
+            s << ", ";
+    }
+    s << "}";
+    return s;
+}
+
 TEST_SUITE_BEGIN("constructor");
 
 TEST_CASE("Empty List") {

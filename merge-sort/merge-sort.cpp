@@ -35,7 +35,7 @@ auto mergesort(List &list) noexcept -> void {
     ListElement *middle = nullptr;
     // 2. Переносим вторую половину в новый список
     List second;
-    second.head = std::move(middle->next);
+    // second.head = std::move(middle->next);
     // 3. Для каждой половины запускаем mergesort
     // 4. Делаем merge от результатов,
     // не забыв std::move в аргументах,
