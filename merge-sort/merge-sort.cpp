@@ -15,10 +15,10 @@ List::List(std::initializer_list<int> list) {
 }
 
 auto merge(List a, List b) noexcept -> List {
-    // Слияние двух списков
+    // Слияние двух упорядоченных списков
     List result;
     ListElement *tail =
-        nullptr; // должен указывать на поледний элемент списка result
+        nullptr; // должен указывать на последний элемент списка result
     while (a.head && b.head) {
         // Выбираем меньший из a.head.value и b.head.value
         // и переносим a.head или b.head в конец result,
